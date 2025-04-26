@@ -9,7 +9,7 @@ def register_exception_handlers(app: FastAPI) -> None:
     app.exception_handler(RequestValidationError)(pyndndic_exception_filter)
 
 
-def http_exception_filter(_: Request, exc: HTTPException) -> JSONResponse:
+def http_exception_filter(_: Request, exc: HTTPException | Exception) -> JSONResponse:
     if isinstance(exc, HTTPException):
         return JSONResponse(
             status_code=exc.status_code,
